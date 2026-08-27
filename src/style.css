@@ -1,0 +1,55 @@
+
+.p-button:focus {
+    box-shadow: none;
+}
+
+.temperature {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.temperature__empty {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--surface-300);
+}
+
+.forecast-item {
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.forecast-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.forecast-time {
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 1.1em;
+  padding: 10px;
+  background-color: var(--surface-section);
+  border-radius: 6px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  color: var(--text-color-secondary);
+  padding: 5px 10px;
+  background-color: var(--surface-section);
+  border-radius: 4px;
+  align-items: baseline;
+}
+
+@import "tailwindcss"
