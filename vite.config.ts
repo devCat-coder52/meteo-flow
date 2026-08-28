@@ -7,6 +7,9 @@ import { defineConfig } from "vite"
 export default defineConfig({
   base: "/meteo-flow/",
   plugins: [vue(), tailwindcss()],
+  build: {
+    outDir: 'dist',
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
