@@ -1,6 +1,6 @@
 import axios from "axios"
 import dayjs from "../utils/dayjs"
-import { ForecastData, ForecastResponse } from "../types/weatherTypes"
+import { TimeForecast, ForecastResponse } from "../types/weatherTypes";
 import { useLanguage } from "@/composables/useLanguage";
 
 export class ForecastService {
@@ -14,9 +14,9 @@ export class ForecastService {
   async getForecastData(
     lat: number,
     lon: number
-  ): Promise<Record<string, ForecastData>> {
+  ): Promise<Record<string, TimeForecast[]>> {
     try {
-      const { locale } = useLanguage()
+      const { locale } = useLanguage();
       const response = await axios.get<ForecastResponse>(this.baseUrl, {
         params: {
           lat,
@@ -27,7 +27,7 @@ export class ForecastService {
           cnt: 30,
         },
       });
-      const forecasts: Record<string, ForecastData> = {};
+      const forecasts: Record<string, TimeForecast[]> = {};
       const timezone = response.data.city.timezone / 3600;
 
       response.data.list.forEach((item) => {
@@ -37,10 +37,7 @@ export class ForecastService {
         const temp = Math.round(item.main.temp);
         const description = item.weather[0].description;
         const pressure = Math.round(item.main.pressure * 0.750062);
-        if (!forecasts[date]) {
-          forecasts[date] = [];
-        }
-        const ForecastData: ForecastData = {
+        const timeForecast: TimeForecast = {
           temp: temp > 0 ? `+${temp}°` : `${temp}°`,
           description:
             description.charAt(0).toUpperCase() + description.slice(1),
@@ -48,11 +45,12 @@ export class ForecastService {
           feels_like: item.main.feels_like,
           humidity: item.main.humidity,
           pressure: pressure,
-          wind_speed: item.wind.speed.toFixed(1),
+          wind_speed: parseFloat(item.wind.speed.toFixed(1)),
           clouds: item.clouds.all,
           time: time,
         };
-        forecasts[date].push(ForecastData);
+        if (!forecasts[date]) forecasts[date] = [];
+        forecasts[date].push(timeForecast);
       });
       return forecasts;
     } catch (error) {

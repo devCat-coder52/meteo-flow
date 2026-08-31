@@ -10,11 +10,6 @@
       class="w-full md:w-30rem"
       :emptySearchMessage="t('emptySearchMessage')"
     >
-      <template #itemslot="slotProps">
-        <div class="flex align-items-center">
-          <div>{{ slotProps.item.fullName }}</div>
-        </div>
-      </template>
       <template #option="slotProps">
         <div class="flex align-options-center">
           {{ slotProps.option.name[locale] }}
@@ -74,7 +69,6 @@ const searchCities = async (event: { query: string }) => {
 
 const onCitySelect = (event: { value: City }) => {
   const city = event.value
-  console.log(city.shortName[locale.value])
   selectedCity.value = city.shortName[locale.value] ?? city.name[locale.value]
   const location = { 
     lat: city.lat, 

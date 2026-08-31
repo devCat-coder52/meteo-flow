@@ -2,14 +2,14 @@
   <div class="flex justify-between items-center flex-wrap gap-[15px] mb-[15px]">
     <Button @click="showCitySelector" plain text>
       <Image v-if="countryLinkIcon" :src="countryLinkIcon" />
-      <span style="margin-left: 8px;">{{ store.selectedLocation.city?.[locale] }}</span>
+      <span style="margin-left: 8px;">{{ store.selectedLocation?.city?.[locale] }}</span>
       <i class="pi ml-[4px]" :class="{'pi-chevron-down': true}"></i>
     </Button>
     <ConfirmPopup group="citySelector">
       <template #container="{ rejectCallback }">
         <div class="p-[1rem]">
           <CitySelector 
-            :initial-city="store.selectedLocation.city[locale]" 
+            :initial-city="store.selectedLocation?.city[locale]" 
             @city-change="onCityChange" 
             @close="rejectCallback"
           />
@@ -47,11 +47,11 @@ const { t, locale } = useLanguage()
 const { currentTime } = useClock()
 
 const countryLinkIcon = computed(() => {
-  return store.selectedLocation.country ? `https://flagsapi.com/${store.selectedLocation.country}/shiny/24.png` : null;
+  return store.selectedLocation?.country ? `https://flagsapi.com/${store.selectedLocation.country}/shiny/24.png` : null;
 })
 
 const localTime = computed(() => {
-  return currentTime.value.utc().add(store.selectedLocation.timezone || 0, 'hour').format('DD MMMM YYYY HH:mm:ss')
+  return currentTime.value.utc().add(store.selectedLocation?.timezone || 0, 'hour').format('DD MMMM YYYY HH:mm:ss')
 })
 
 const showCitySelector = () => {

@@ -1,8 +1,8 @@
-import { ForecastData, WeatherMain } from "@/types/weatherTypes";
+import { WeatherMain, TimeForecast } from "@/types/weatherTypes";
 
-export const getMainWeatherData = (forecast: ForecastData) => {
+export const getMainWeatherData = (forecast: TimeForecast[] | undefined) => {
   if (!forecast) return [null, null];
-  const weather: WeatherMain[] = [];
+  const weather: (WeatherMain | null)[] = [];
   const dayWeather = forecast.find(
     (hour) =>
       hour.time === "10:00" || hour.time === "11:00" || hour.time === "12:00"

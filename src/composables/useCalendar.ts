@@ -2,14 +2,15 @@ import { computed } from "vue"
 import dayjs from "@/utils/dayjs"
 import { useWeatherStore } from "@/stores/weather.store"
 import { getMainWeatherData } from "@/utils/func"
+import { CalendarDay } from "@/types/calendarTypes"
 
 export function useCalendar() {
   const store = useWeatherStore()
 
   const calendarDays = computed(() => {
-    const availableDates = Object.keys(store.forecastData).map((date) =>
-      dayjs(date)
-    );
+    const availableDates = store.forecastData
+      ? Object.keys(store.forecastData).map((date) => dayjs(date))
+      : [];
 
     const minDate =
       availableDates.length > 0 ? dayjs.min(availableDates) : null;
@@ -22,8 +23,8 @@ export function useCalendar() {
       for (let i = 0; i < 7; i++) {
         const currentDay = startOfWeek.add(i, "day");
         const dateString = currentDay.format("YYYY-MM-DD");
-        const dayForecast = store.forecastData[dateString];
-        const dayMoonPhase = store.moonPhaseData[dateString];
+        const dayForecast = store.forecastData?.[dateString];
+        const dayMoonPhase = store.moonPhaseData?.[dateString];
 
         days.push({
           date: currentDay,
@@ -46,11 +47,9 @@ export function useCalendar() {
       currentDay.isSameOrBefore(endDay)
     ) {
       const dateString = currentDay.format("YYYY-MM-DD");
-      const dayForecast = store.forecastData[dateString];
-      const dayWeather = getMainWeatherData(
-        store.forecastData[dateString]
-      );
-      const dayMoonPhase = store.moonPhaseData[dateString];
+      const dayForecast = store.forecastData?.[dateString];
+      const dayMoonPhase = store.moonPhaseData?.[dateString];
+      const dayWeather = getMainWeatherData(dayForecast);
 
       days.push({
         date: currentDay,

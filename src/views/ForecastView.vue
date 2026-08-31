@@ -5,6 +5,7 @@
       :value="forecasts" 
       layout='list'
       :paginator="false"
+      dataKey="index"
     >
       <template #list="slotProps">
         <div v-for="(forecast, index) in slotProps.items" :key="index" class="forecast-item p-3 mb-3">
@@ -53,7 +54,7 @@ const selectedDate = computed(() => store.selectedDateForecasts)
 
 const forecasts = computed(() => {
   const dateKey = selectedDate.value.format('YYYY-MM-DD') as keyof typeof store.forecastData
-  return store.forecastData[dateKey] || []
+  return store.forecastData?.[dateKey] || []
 })
 
 const dateForecasts = computed(() => {

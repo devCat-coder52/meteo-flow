@@ -33,7 +33,7 @@ const store = useWeatherStore()
 const locales = [
   { label: 'Русский', code: 'ru' },
   { label: 'English', code: 'en' }
-] as const
+]
 
 const selectedLocale = ref(locales.find(lang => lang.code === locale.value))
 
@@ -41,7 +41,7 @@ const selectedLocale = ref(locales.find(lang => lang.code === locale.value))
 
 const onLanguageChange = async (event: any) => {
   setLocale(event.value.code)
-  store.selectedLocation.isIp 
+  store.selectedLocation?.isIp 
     ? await store.detectUserLocation()
     : await store.loadWeatherAndForecast()
 }

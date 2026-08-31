@@ -10,6 +10,7 @@ const DEFAULT_LOCATION: Location = {
   },
   country: "RU",
   timezone: 3,
+  isIp: false
 };
 
 export class LocationService {
@@ -44,10 +45,11 @@ export class LocationService {
               lat: latitude,
               lon: longitude,
               city: {
-                [locale]: geoData?.name || locale === 'ru' ? "Неизвестно" : "Unknown",
+                [locale]: geoData?.name || (locale === 'ru' ? "Неизвестно" : "Unknown"),
               },
               country: geoData?.country || "Unknown",
-              timezone: geoData.timezone,
+              timezone: geoData?.timezone,
+              isIp: true
             };
 
             resolve(location);
@@ -63,10 +65,11 @@ export class LocationService {
               },
               country: "",
               timezone: 0,
+              isIp: true
             });
           }
         },
-        async (error) => {
+        async () => {
           const ipLocation = await detectLocationByIP(locale);
           resolve(ipLocation)
         },
@@ -80,7 +83,7 @@ export class LocationService {
   }
 }
 
-const detectLocationByIP = async (locale): Promise<Location> => {
+const detectLocationByIP = async (locale : string): Promise<Location> => {
   try {
     const response = await axios.get("https://ipwho.is", {
       params: { lang: locale },
@@ -95,6 +98,7 @@ const detectLocationByIP = async (locale): Promise<Location> => {
         },
         country: response.data.country_code,
         timezone: response.data.timezone.offset / 3600 || 0,
+        isIp: true
       };
     }
 

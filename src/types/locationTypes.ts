@@ -2,8 +2,7 @@ export interface Location {
   lat: number;
   lon: number;
   city: {
-    ru: string;
-    en: string;
+    [lang: string]: string;
   };
   country: string;
   timezone: number;

@@ -1,40 +1,45 @@
-import axios from "axios"
 import { defineStore } from "pinia"
 import { ref } from "vue"
 import dayjs from "@/utils/dayjs"
 import { WeatherService } from "@/services/weather"
 import { ForecastService } from "@/services/forecast"
 import { LocationService } from "@/services/location"
-import { MoonService } from "@/services/moon"
-import { WeatherData, ForecastData } from "@/types/weatherTypes"
+//import { MoonService } from "@/services/moon"
+import { ProcessedWeatherData, TimeForecast } from "@/types/weatherTypes";
 import { Location } from "@/types/locationTypes"
 import { Dayjs } from "dayjs"
 import { useLanguage } from "@/composables/useLanguage"
 
 export const useWeatherStore = defineStore("weather", () => {
-  const currentDate = ref(dayjs())
-  const weatherData = ref<WeatherData>({})
-  const forecastData = ref<ForecastData>({})
-  const moonPhaseData = ref<Record<string, any>>({})
-  const selectedLocation = ref<Location>({})
-  const selectedDateForecasts = ref<Dayjs>(currentDate)
-  const loading = ref(false)
-  const { locale } = useLanguage()
+  const currentDate = ref(dayjs());
+  const weatherData = ref<ProcessedWeatherData | null>(null);
+  const forecastData = ref<Record<string, TimeForecast[]> | null>(null);
+  const moonPhaseData = ref<Record<string, any> | null>(null);
+  const selectedLocation = ref<Location | null>(null);
+  const selectedDateForecasts = ref<Dayjs>(dayjs());
+  const loading = ref(false);
+  const error = ref<string | null>(null);
+
+  const { locale } = useLanguage();
 
   const loadWeatherAndForecast = async () => {
-    if (!import.meta.env.VITE_OPENWEATHER_API_KEY) return
+    if (!import.meta.env.VITE_OPENWEATHER_API_KEY) return;
 
-    const isInitial = Object.keys(weatherData.value).length === 0;
+    const isInitial = !weatherData.value;
     if (isInitial) loading.value = true;
-    
+
     try {
-      const weatherService = new WeatherService()
-      const forecastService = new ForecastService()
+      if (!selectedLocation.value) {
+        throw new Error("Локация не выбрана");
+      }
+      const weatherService = new WeatherService();
+      const forecastService = new ForecastService();
 
       const [weather, forecast] = await Promise.all([
         weatherService.getWeatherData(
           selectedLocation.value.lat,
-          selectedLocation.value.lon
+          selectedLocation.value.lon,
+          locale.value
         ),
         forecastService.getForecastData(
           selectedLocation.value.lat,
@@ -44,17 +49,20 @@ export const useWeatherStore = defineStore("weather", () => {
       weatherData.value = weather;
       forecastData.value = forecast;
 
-      selectedLocation.value.timezone = weatherData.value.timezone / 3600 || 0
-      updateMoonData()
-
-    } catch (error) {
-      console.error("Ошибка загрузки:", error);
+      selectedLocation.value.timezone = weatherData.value.timezone / 3600 || 0;
+      //updateMoonData()
+      error.value = null;
+    } catch (err) {
+      console.error("Ошибка загрузки:", err);
+      error.value = err instanceof Error ? err.message : "Неизвестная ошибка";
     } finally {
       if (isInitial) loading.value = false;
     }
-  }
+  };
 
-  const updateMoonData = () => {
+  /*const updateMoonData = () => {
+    if (!weatherData.value) return;
+
     const dates = Object.keys(weatherData.value).map((d) => dayjs(d));
     if (dates.length > 0) {
       const min = dayjs.min(dates);
@@ -65,16 +73,16 @@ export const useWeatherStore = defineStore("weather", () => {
       const end = dayjs().endOf("week");
       moonPhaseData.value = MoonService.getMoonPhasesForRange(start, end);
     }
-  }
+  }*/
 
   const detectUserLocation = async () => {
-    const locationService = new LocationService()
-    const location = await locationService.detectLocation(locale.value)
-    if (location) await setUserLocation(location, true)
-  }
+    const locationService = new LocationService();
+    const location = await locationService.detectLocation(locale.value);
+    if (location) await setUserLocation(location, true);
+  };
 
-  const setUserLocation = async (location : Location, isIp : boolean) => {
-    const { lat, lon, city, country, timezone } = location
+  const setUserLocation = async (location: Location, isIp: boolean) => {
+    const { lat, lon, city, country, timezone } = location;
     selectedLocation.value = {
       ...selectedLocation.value,
       lat,
@@ -82,10 +90,10 @@ export const useWeatherStore = defineStore("weather", () => {
       city,
       country,
       isIp,
+      timezone: timezone ? timezone / 3600 : 0,
     };
-    if (timezone) selectedLocation.value.timezone = timezone / 3600
-    await loadWeatherAndForecast()
-  }
+    await loadWeatherAndForecast();
+  };
 
   const switchForecastData = (day: Dayjs) => {
     selectedDateForecasts.value = day;
@@ -93,6 +101,7 @@ export const useWeatherStore = defineStore("weather", () => {
 
   return {
     currentDate,
+    error,
     forecastData,
     loading,
     moonPhaseData,

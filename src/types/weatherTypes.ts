@@ -1,9 +1,30 @@
 export interface ForecastData {
-  day: TimeForecast[];
+  [key: string]: TimeForecast[];
+}
+
+export interface DailyForecast {
+  dt: number;
+  main: {
+    temp: number;
+    feels_like: number;
+    pressure: number;
+    humidity: number;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  wind: {
+    speed: number;
+  };
+  clouds: {
+    all: number;
+  };
+  dt_txt: string;
 }
 
 export interface ForecastResponse {
-  list: DailyForecast[];
+  list: Array<ForecastResponseList>;
   city: {
     timezone: number;
     name: string;
@@ -11,11 +32,18 @@ export interface ForecastResponse {
   };
 }
 
-export interface WeatherResponce {
-  city: string;
-  country: string;
+export interface WeatherResponse {
+  name: string;
+  sys: {
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
   timezone: number;
-  weather: Weather[];
+  weather: {
+    description: string;
+    icon: string;
+  }[];
   main: {
     temp: number;
     feels_like: number;
@@ -25,19 +53,13 @@ export interface WeatherResponce {
   visibility: number;
   wind: {
     speed: number;
-    deg: number;
   };
   clouds: {
     all: number;
   };
-  dt: number;
-  sys: {
-    sunrise: number;
-    sunset: number;
-  };
 }
 
-export interface WeatherData {
+export interface ProcessedWeatherData {
   city: string;
   country: string;
   timezone: number;
@@ -76,4 +98,34 @@ export interface WeatherMain {
   temp: string;
   icon: string;
   description: string;
+}
+
+interface ForecastResponseList {
+  dt: number;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    sea_level: number;
+    grnd_level: number;
+    humidity: number;
+    temp_kf: number;
+    dew_point: number;
+  };
+  weather: Array<{
+    main: string;
+    description: string;
+    icon: string;
+  }>;
+  clouds: {
+    all: number;
+  };
+  wind: {
+    speed: number;
+    deg: number;
+    gust: number;
+  }
+  visibility: number;
 }

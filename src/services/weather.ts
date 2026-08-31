@@ -1,6 +1,8 @@
 import axios from "axios"
-import { WeatherResponce, WeatherData } from "../types/weatherTypes"
-import { useLanguage } from "@/composables/useLanguage"
+import {
+  WeatherResponse,
+  ProcessedWeatherData
+} from "../types/weatherTypes";
 
 export class WeatherService {
   private apiKey: string;
@@ -10,16 +12,19 @@ export class WeatherService {
     this.apiKey = apiKey;
   }
 
-  async getWeatherData(lat: number, lon: number): Promise<WeatherData> {
+  async getWeatherData(
+    lat: number,
+    lon: number,
+    lang: string
+  ): Promise<ProcessedWeatherData> {
     try {
-      const { locale } = useLanguage()
-      const response = await axios.get<WeatherResponce>(this.baseUrl, {
+      const response = await axios.get<WeatherResponse>(this.baseUrl, {
         params: {
           lat,
           lon,
           appid: this.apiKey,
           units: "metric",
-          lang: locale.value,
+          lang,
         },
       });
       const data = response.data;
@@ -27,7 +32,7 @@ export class WeatherService {
       const tempFeelsLike = Math.round(data.main.feels_like);
       const description = data.weather[0].description;
       const pressure = Math.round(data.main.pressure * 0.750062);
-      const weatherData: WeatherData = {
+      const weatherData: ProcessedWeatherData = {
         city: data.name,
         country: data.sys.country,
         timezone: data.timezone,

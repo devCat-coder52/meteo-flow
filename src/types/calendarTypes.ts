@@ -1,17 +1,19 @@
-import { Dayjs } from "../utils/dayjs";
-import { ForecastData, WeatherMain } from "./weatherTypes";
+import dayjs from "@/utils/dayjs";
+import { TimeForecast, WeatherMain } from "./weatherTypes";
+
+export interface MoonPhase {
+  phase: string;
+  illumination: number;
+  icon: string;
+  description: string;
+}
 
 export interface CalendarDay {
-  date: Dayjs;
+  date: dayjs.Dayjs;
   isCurrentMonth: boolean;
   isToday?: boolean;
-  forecast?: forecastData[];
-  weather?: WeatherMain[];
-  moonPhase?: {
-    phase: string;
-    illumination: number;
-    icon: string;
-    description: string;
-  };
+  forecast?: TimeForecast[];
+  weather?: (WeatherMain | null)[];
+  moonPhase?: MoonPhase;
   hasForecastData?: boolean;
 }
