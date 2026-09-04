@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="grid grid-cols-2 gap-[5px]">
-        <div v-for="subTitle in subTitles" :class="[{ [`col-span-${subTitle.colspan}`]: subTitle.colspan}]" class="stat-item" v-tooltip.top="t(subTitle.item)">
+        <div v-for="subTitle in subTitles" :class="[subTitle.colspan]" class="stat-item" v-tooltip.top="t(subTitle.item)">
           <i v-if="subTitle.class" :class="subTitle.class" class="mr-1 text-gray-500"></i>
           {{ weather.stats[subTitle.item] }}{{ subTitle.unit[locale] }}
         </div>
@@ -50,7 +50,7 @@ interface StatSubtitle {
     ru: string,
     en: string
   }
-  colspan?: number
+  colspan: string
 }
 
 const subTitles : StatSubtitle[] = [{
@@ -60,7 +60,7 @@ const subTitles : StatSubtitle[] = [{
     ru: " мм рт.ст.",
     en: " mmHg"
   },
-  colspan: 2
+  colspan: "col-span-2"
 },{
   item: "humidity",
   class: "fa-classic fa-water",
@@ -68,6 +68,7 @@ const subTitles : StatSubtitle[] = [{
     ru: "%",
     en: "%"
   },
+  colspan: ""
 }, {
   item: "clouds",
   class: "fa-regular fa-cloud",
@@ -75,6 +76,7 @@ const subTitles : StatSubtitle[] = [{
     ru: "%",
     en: "%"
   },
+  colspan: ""
 }, {
   item: "wind_speed",
   class: "fa-classic fa-wind",
@@ -82,6 +84,7 @@ const subTitles : StatSubtitle[] = [{
     ru: " м/с",
     en: " m/s"
   },
+  colspan: ""
 },{
   item: "visibility",
   class: "fa-regular fa-eye",
@@ -89,5 +92,6 @@ const subTitles : StatSubtitle[] = [{
     ru: " км",
     en: " km"
   },
+  colspan: ""
 }]
 </script>

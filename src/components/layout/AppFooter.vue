@@ -25,7 +25,7 @@
       </div>-->
       <div class="info-item copyright">
         <i class="fa-regular fa-copyright mr-2"></i>
-        <span>2026 MeteoFlow · 
+        <span>2026 · MeteoFlow · 
           <button @click="showPrivacy = true" class="privacy-link">
             {{ t('privacyTitle') }}
           </button>
