@@ -1,16 +1,24 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
 
 .p-button:focus {
     box-shadow: none;
 }
 
 .temperature {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
   font-weight: 600;
   color: var(--text-color);
 }
 
 .temperature__empty {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
   font-weight: 600;
   color: var(--surface-300);
 }
@@ -21,9 +29,10 @@
   border-radius: 8px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: clamp(10px, 3vw, 20px);
   transition: box-shadow 0.2s;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  /*padding: clamp(8px, 2vw, 12px);*/
 }
 
 .forecast-item:hover {
@@ -33,23 +42,37 @@
 .forecast-time {
   font-weight: 500;
   color: var(--text-color);
-  font-size: 1.1em;
-  padding: 10px;
+  font-size: clamp(0.9rem, 2.5vw, 1.1em);
+  padding: clamp(6px, 1.5vw, 10px);
   background-color: var(--surface-section);
   border-radius: 6px;
-  min-width: 80px;
+  min-width: clamp(60px, 15vw, 80px);
   text-align: center;
 }
 
 .stat-item {
   display: flex;
   align-items: center;
-  font-size: 1em;
+  font-size: clamp(0.75rem, 2vw, 1em);
   color: var(--text-color-secondary);
-  padding: 5px 10px;
+  padding: clamp(4px, 1vw, 5px) clamp(6px, 1.5vw, 10px);
   background-color: var(--surface-section);
   border-radius: 4px;
   align-items: baseline;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .forecast-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .forecast-stats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }
 
 @import "tailwindcss"

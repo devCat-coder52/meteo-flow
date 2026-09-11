@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col max-w-[1200px] p-[20px] mx-auto my-0 min-h-screen">
+  <div class="flex flex-col max-w-[1200px] px-[16px] sm:px-[20px] py-[12px] sm:py-[20px] mx-auto my-0 min-h-screen bg-white">
     <AppHeader />
     <div v-if="store.loading" class="flex justify-center items-center py-[40px] text-(--text-color-secondary)">
       <ProgressSpinner style="width: 40px; height: 40px" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"/>

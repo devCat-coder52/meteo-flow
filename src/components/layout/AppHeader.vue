@@ -1,14 +1,14 @@
 <template>
-  <div class="flex justify-between items-center flex-wrap gap-[15px] mb-[15px]">
-    <Button @click="showCitySelector" plain text>
-      <Image v-if="countryLinkIcon" :src="countryLinkIcon" />
-      <span style="margin-left: 8px;">{{ store.selectedLocation?.city?.[locale] }}</span>
-      <i class="pi ml-[4px]" :class="{'pi-chevron-down': true}"></i>
+  <div class="flex justify-between items-center flex-wrap gap-[10px] sm:gap-[15px] mb-[12px] sm:mb-[15px]">
+    <Button @click="showCitySelector" plain text class="min-w-0">
+      <Image v-if="countryLinkIcon" :src="countryLinkIcon" class="shrink-0" />
+      <span class="truncate" style="margin-left: 8px;">{{ store.selectedLocation?.city?.[locale] }}</span>
+      <i class="pi ml-[4px] shrink-0" :class="{'pi-chevron-down': true}"></i>
     </Button>
     <ConfirmPopup group="citySelector">
       <template #container="{ rejectCallback }">
         <div class="p-[1rem]">
-          <CitySelector 
+          <CitySelector
             :initial-city="store.selectedLocation?.city[locale]" 
             @city-change="onCityChange" 
             @close="rejectCallback"
@@ -16,13 +16,13 @@
         </div>
       </template>
     </ConfirmPopup>
-    <div class="flex flex-wrap items-center gap-[15px]">
-      <div class="flex items-center gap-[10px]">
+    <div class="flex flex-wrap items-center gap-[10px] sm:gap-[15px] w-full sm:w-auto">
+      <div class="local-time flex items-center gap-[10px] w-full sm:w-auto">
         <!--<h2 class="mx-5 text-base font-semibold" style="color: var(--text-color)">{{ formattedWeekRange }}</h2>-->
-        <span class="mx-5 text-base" style="color: var(--text-color)">{{ t('localTimeTitle') }}: {{ localTime }}</span>
+        <span class="text-xs sm:text-base w-[340px]" style="color: var(--text-color)">{{ t('localTimeTitle') }}: {{ localTime }}</span>
       </div>
     </div>
-    <div class="controls">
+    <div class="controls w-full sm:w-auto">
       <LanguageSelector />
     </div>
   </div>

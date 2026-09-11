@@ -93,7 +93,7 @@ const progressPercentage = computed(() => {
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  width: 250px;
+  width: clamp(200px, 50vw, 250px);
 }
 
 .sun-time-row {
@@ -106,7 +106,7 @@ const progressPercentage = computed(() => {
 .sun-time-item {
   display: flex;
   align-items: center;
-  min-width: 100px;
+  min-width: clamp(80px, 25vw, 100px);
 }
 
 .sunrise-item {
@@ -121,10 +121,10 @@ const progressPercentage = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: clamp(28px, 7vw, 36px);
+  height: clamp(28px, 7vw, 36px);
   border-radius: 50%;
-  font-size: 1rem;
+  font-size: clamp(0.75rem, 2vw, 1rem);
 }
 
 .sunrise-icon {
@@ -140,30 +140,31 @@ const progressPercentage = computed(() => {
 .sun-time-info {
   flex: 1;
   text-align: center;
+  margin-left: calc(var(--spacing) * 2);
 }
 
 .sun-label {
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 1.8vw, 0.85rem);
   color: var(--text-color-secondary);
   margin-bottom: 1px;
 }
 
 .sun-time {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 2vw, 1rem);
   font-weight: 600;
   color: var(--text-color);
 }
 
 .sun-progress-bar {
   width: 100%;
-  padding: 0 10px;
+  padding: 0 clamp(6px, 2vw, 10px);
   position: relative;
   margin-top: 5px;
 }
 
 .progress-track {
   position: relative;
-  height: 8px;
+  height: clamp(6px, 1.5vw, 8px);
   background-color: var(--surface-border);
   border-radius: 4px;
   overflow: hidden;
@@ -185,14 +186,14 @@ const progressPercentage = computed(() => {
 
 .sun-position {
   position: absolute;
-  top: -9px;
+  top: clamp(-9px, -1.5vw, -9px);
   transform: translateX(-50%);
   z-index: 2;
 }
 
 .sun-position-icon {
   color: #ff5722;
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   text-shadow: 0 0 4px rgba(255, 87, 34, 0.5);
   background: white;
   border-radius: 50%;
@@ -201,7 +202,7 @@ const progressPercentage = computed(() => {
 
 .moon-position-icon {
   color: #4c50af;
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   text-shadow: 0 0 4px rgba(34, 87, 255, 0.5);
   background: white;
   border-radius: 50%;
@@ -210,5 +211,15 @@ const progressPercentage = computed(() => {
 
 .pi {
   vertical-align: middle;
+}
+
+@media (max-width: 400px) {
+  .sun-times-content {
+    width: 100%;
+  }
+
+  .sun-time-item {
+    min-width: 70px;
+  }
 }
 </style>

@@ -50,7 +50,7 @@ const onLanguageChange = async (event: any) => {
 <style scoped>
 
 .language-dropdown {
-  width: 120px;
+  width: clamp(100px, 25vw, 120px);
   border: 0;
   background: transparent;
 }
@@ -60,10 +60,28 @@ const onLanguageChange = async (event: any) => {
 }
 
 .language-dropdown :deep(.p-dropdown-label) {
-  padding: 0.25rem 0.5rem;
+  padding: clamp(4px, 1vw, 0.25rem) clamp(6px, 1.5vw, 0.5rem);
+  font-size: clamp(0.85rem, 2vw, 1rem);
 }
 
 .language-dropdown :deep(.p-dropdown-trigger) {
   display: none;
+}
+
+@media (max-width: 480px) {
+  .language-dropdown {
+    width: auto;
+    min-width: 80px;
+  }
+
+  .language-dropdown :deep(.p-dropdown) {
+    padding: 4px;
+  }
+}
+
+@media (max-width: 400px) {
+  .language-dropdown :deep(.p-dropdown-label) {
+    font-size: 16px;
+  }
 }
 </style>

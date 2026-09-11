@@ -93,24 +93,26 @@ const weekdays = computed(() => {
   background: var(--surface-border);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 30px;
+  margin-bottom: clamp(16px, 4vw, 30px);
 }
+
 .calendar-day {
-  min-height: 140px;
+  min-height: clamp(80px, 20vw, 140px);
   background: var(--surface-card);
   position: relative;
-  padding: 8px;
+  padding: clamp(4px, 1.5vw, 8px);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .calendar-day-header {
   background: var(--surface-section);
-  padding: 12px 8px;
+  padding: clamp(8px, 2vw, 12px) clamp(4px, 1.5vw, 8px);
   text-align: center;
   font-weight: 600;
   color: var(--text-color);
   border-bottom: 1px solid var(--surface-border);
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
 }
 
 .calendar-day-header.today-header {
@@ -145,7 +147,7 @@ const weekdays = computed(() => {
 }
 
 .day-number {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: 500;
   align-self: flex-end;
   color: #1976d2;
@@ -156,13 +158,42 @@ const weekdays = computed(() => {
 .weather-indicator {
   display: flex;
   align-items: center;
-  height: 40px;
+  height: clamp(30px, 8vw, 40px);
   justify-content: center;
 }
 
 .weather-icon {
-  width: 56px;
-  height: 56px;
+  width: clamp(40px, 10vw, 56px);
+  height: clamp(40px, 10vw, 56px);
 }
 
+@media (max-width: 760px) {
+  .calendar-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    background: transparent;
+  }
+
+  .calendar-day {
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .calendar-day-header {
+    display: none; /* Скрываем заголовки дней на очень маленьких экранах */
+  }
+
+  .day-number {
+    align-self: center;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+  }
+
+  .weather-indicator {
+    height: auto;
+  }
+}
 </style>

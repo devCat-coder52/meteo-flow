@@ -34,7 +34,9 @@
         </div>
       </template>
       <template #empty>
-        {{ t('noData') }}
+        <div class="w-full text-center p-3">
+          {{ t('noData') }}
+        </div>
       </template>
     </DataView>
   </div>
@@ -107,15 +109,16 @@ const subTitles = [{
   display: flex;
   align-items: center;
   flex: 1;
+  gap: 8px;
 }
 
 .forecast-icon {
-  width: 50px;
-  height: 50px;
+  width: clamp(40px, 10vw, 50px);
+  height: clamp(40px, 10vw, 50px);
 }
 
 .forecast-temp {
-  font-size: 1.5em;
+  font-size: clamp(1.2em, 3vw, 1.5em);
   font-weight: bold;
   color: var(--primary-color);
   min-width: 60px;
@@ -123,21 +126,22 @@ const subTitles = [{
 }
 
 .forecast-desc {
-  font-size: 1em;
+  font-size: clamp(0.85em, 2vw, 1em);
   color: var(--text-color);
-  padding-left: 25px;
+  padding-left: clamp(10px, 2vw, 25px);
   flex: 1;
+  min-width: 100%;
 }
 
 .forecast-stats {
   display: flex;
-  gap: 15px;
+  gap: clamp(8px, 2vw, 15px);
 }
 
 .time-forecasts h4 {
-  margin: 25px 0 15px 0;
+  margin: clamp(16px, 4vw, 25px) 0 clamp(10px, 2vw, 15px) 0;
   color: var(--text-color);
-  font-size: 1.1em;
+  font-size: clamp(1rem, 2.5vw, 1.1em);
   border-bottom: 2px solid var(--surface-border);
   padding-bottom: 5px;
 }

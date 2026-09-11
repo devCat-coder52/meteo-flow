@@ -11,8 +11,13 @@
       :emptySearchMessage="t('emptySearchMessage')"
     >
       <template #option="slotProps">
-        <div class="flex align-options-center">
+        <div class="flex align-options-center complete-option">
           {{ slotProps.option.name[locale] }}
+        </div>
+      </template>
+      <template #empty>
+        <div class="flex align-options-center complete-option">
+          Города не найдены
         </div>
       </template>
     </AutoComplete>
@@ -90,4 +95,48 @@ const onCitySelect = (event: { value: City }) => {
   gap: 10px;
   max-width: 600px;
 }
+
+:deep(.p-autocomplete) {
+  max-width: 600px;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+:deep(.complete-option) {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+:deep(.p-autocomplete-input) {
+  font-size: clamp(0.7rem, 2.5vw, 1rem);
+  padding: clamp(8px, 2vw, 12px);
+}
+
+:deep(.p-autocomplete-dropdown) {
+  width: clamp(40px, 10vw, 50px);
+}
+
+:deep(.p-autocomplete-panel) {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+:deep(.p-autocomplete-item) {
+  padding: clamp(8px, 2vw, 12px);
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+:deep(.p-autocomplete-empty-message) {
+  padding: clamp(8px, 2vw, 12px);
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+@media (max-width: 400px) {
+  :deep(.p-autocomplete-input) {
+    font-size: 12px;
+  }
+
+  .complete-option {
+    font-size: 12px;
+  }
+}
+
 </style>

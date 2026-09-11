@@ -1,29 +1,29 @@
 <template>
-  <div v-if="weather?.main" class="forecast-item p-10 mb-8 mx-10">
-    <div class="flex flex-wrap gap-8 items-center w-full">
-      <div class="grid grid-flow-col grow grid-rows-4 gap-1">
-        <div class="row-span-3 text-8xl text-(--text-color) font-medium leading-none shrink-2">{{ weather.main.temp }}</div>
-        <div class="text-base text-(--text-color-secondary)">{{ t('feelsLike') }} {{ weather.main.feels_like }}</div>
+  <div v-if="weather?.main" class="forecast-item p-8 sm:p-6 lg:p-10 mb-4 sm:mb-6 lg:mb-8 mx-2 sm:mx-4 lg:mx-10">
+    <div class="flex flex-wrap gap-4 sm:gap-6 lg:gap-8 items-center w-full">
+      <div class="grid grid-flow-col grow grid-rows-4 gap-1 min-w-0">
+        <div class="row-span-3 text-5xl sm:text-6xl lg:text-8xl text-(--text-color) font-medium leading-none shrink-2">{{ weather.main.temp }}</div>
+        <div class="text-xs sm:text-sm lg:text-base text-(--text-color-secondary)">{{ t('feelsLike') }} {{ weather.main.feels_like }}</div>
         <div class="row-span-4">
-          <div class="flex">
+          <div class="flex flex-wrap">
             <img 
               :src="`https://openweathermap.org/img/wn/${weather.main.icon}@2x.png`" 
               :alt="weather.main.description"
-              class="size-[120px] self-start"
+              class="size-[80px] sm:size-[100px] lg:size-[120px] self-start"
             />
-            <div class="flex flex-wrap items-center text-xl text-(--text-color) font-medium max-w-[130px]">
+            <div class="flex flex-wrap items-center text-sm sm:text-lg lg:text-xl text-(--text-color) font-medium max-w-[100px] sm:max-w-[130px]">
               {{ weather.main.description }}
             </div>
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-[5px]">
+      <div class="grid grid-cols-2 gap-[5px] w-full sm:w-auto">
         <div v-for="subTitle in subTitles" :class="[subTitle.colspan]" class="stat-item" v-tooltip.top="t(subTitle.item)">
           <i v-if="subTitle.class" :class="subTitle.class" class="mr-1 text-gray-500"></i>
           {{ weather.stats[subTitle.item] }}{{ subTitle.unit[locale] }}
         </div>
       </div>
-      <div>
+      <div class="w-full sm:w-auto">
         <SunTimes :sunrise="weather.sys.sunrise" :sunset="weather.sys.sunset" :timezone="weather.timezone" />
       </div>
     </div>
@@ -95,3 +95,6 @@ const subTitles : StatSubtitle[] = [{
   colspan: ""
 }]
 </script>
+
+<style>
+</style>

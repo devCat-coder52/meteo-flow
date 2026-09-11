@@ -62,7 +62,7 @@ const showPrivacy = ref(false)
 <style scoped>
 .info-footer {
   margin: 0 auto;
-  padding: 15px;
+  padding: clamp(10px, 2vw, 15px);
   background: var(--surface-section);
   border-radius: 8px;
   border: 1px solid var(--surface-border);
@@ -71,14 +71,16 @@ const showPrivacy = ref(false)
 .info-item {
   display: flex;
   align-items: baseline;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
+  margin-bottom: clamp(6px, 1.5vw, 8px);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
   color: var(--text-color-secondary);
   line-height: 1.4;
+  flex-wrap: nowrap;
 }
 .info-item i {
   line-height: 1;
   margin-top: 0.1em;
+  flex-shrink: 0;
 }
 
 .info-item:last-child {
@@ -89,12 +91,13 @@ const showPrivacy = ref(false)
   background: none;
   border: none;
   color: var(--text-color-secondary);
-  font-size: 0.85rem;
+  font-size: clamp(0.7rem, 1.8vw, 0.85rem);
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
   text-decoration-color: transparent;
   transition: all 0.2s;
+  word-break: break-word;
 }
 
 .privacy-link:hover {
@@ -103,11 +106,22 @@ const showPrivacy = ref(false)
 }
 
 .privacy-content p {
-  margin-bottom: 12px;
+  margin-bottom: clamp(8px, 2vw, 12px);
   line-height: 1.6;
+  font-size: clamp(0.85rem, 2vw, 1rem);
 }
 
 .privacy-content p:last-child {
   margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .info-footer {
+    padding: 12px;
+  }
+
+  .info-item {
+    gap: 4px;
+  }
 }
 </style>
