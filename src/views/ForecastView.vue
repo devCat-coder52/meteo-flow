@@ -34,7 +34,7 @@
         </div>
       </template>
       <template #empty>
-        <div class="w-full text-center p-3">
+        <div class="w-full text-center p-3 text-white">
           {{ t('noData') }}
         </div>
       </template>
@@ -127,7 +127,7 @@ const subTitles = [{
 
 .forecast-desc {
   font-size: clamp(0.85em, 2vw, 1em);
-  color: var(--text-color);
+  color: white;
   padding-left: clamp(10px, 2vw, 25px);
   flex: 1;
   min-width: 100%;
@@ -140,7 +140,7 @@ const subTitles = [{
 
 .time-forecasts h4 {
   margin: clamp(16px, 4vw, 25px) 0 clamp(10px, 2vw, 15px) 0;
-  color: var(--text-color);
+  color: white;
   font-size: clamp(1rem, 2.5vw, 1.1em);
   border-bottom: 2px solid var(--surface-border);
   padding-bottom: 5px;

@@ -26,9 +26,6 @@
       <div class="progress-track">
         <div :class="isDay ? 'sun-progress-fill' : 'moon-progress-fill'" :style="{ width: progressPercentage + '%' }"></div>
       </div>
-      <div class="sun-position" :style="{ left: progressPercentage + '%' }">
-        <i class="pi" :class="isDay ? 'pi-sun sun-position-icon' : 'pi-moon moon-position-icon'"></i>
-      </div>
     </div>
   </div>
 </template>
@@ -124,35 +121,34 @@ const progressPercentage = computed(() => {
   width: clamp(28px, 7vw, 36px);
   height: clamp(28px, 7vw, 36px);
   border-radius: 50%;
-  font-size: clamp(0.75rem, 2vw, 1rem);
+}
+
+.pi-moon, .pi-sun {
+  font-size: clamp(2rem, 2.5vw, 2.3rem);
 }
 
 .sunrise-icon {
-  background-color: #fff3e0;
   color: #ff9800;
 }
 
 .sunset-icon {
-  background-color: #e8e8f5;
   color: #4c50af;
 }
 
 .sun-time-info {
   flex: 1;
   text-align: center;
-  margin-left: calc(var(--spacing) * 2);
 }
 
 .sun-label {
   font-size: clamp(0.7rem, 1.8vw, 0.85rem);
-  color: var(--text-color-secondary);
   margin-bottom: 1px;
 }
 
 .sun-time {
   font-size: clamp(0.85rem, 2vw, 1rem);
   font-weight: 600;
-  color: var(--text-color);
+  color: white;
 }
 
 .sun-progress-bar {
@@ -182,31 +178,6 @@ const progressPercentage = computed(() => {
   background: linear-gradient(90deg, #99d5ff, #4c50af);
   border-radius: 4px;
   transition: width 0.5s ease;
-}
-
-.sun-position {
-  position: absolute;
-  top: clamp(-9px, -1.5vw, -9px);
-  transform: translateX(-50%);
-  z-index: 2;
-}
-
-.sun-position-icon {
-  color: #ff5722;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  text-shadow: 0 0 4px rgba(255, 87, 34, 0.5);
-  background: white;
-  border-radius: 50%;
-  padding: 2px;
-}
-
-.moon-position-icon {
-  color: #4c50af;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  text-shadow: 0 0 4px rgba(34, 87, 255, 0.5);
-  background: white;
-  border-radius: 50%;
-  padding: 2px;
 }
 
 .pi {

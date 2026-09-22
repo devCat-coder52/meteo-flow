@@ -1,9 +1,14 @@
 <template>
-  <div class="flex justify-between items-center flex-wrap gap-[10px] sm:gap-[15px] mb-[12px] sm:mb-[15px]">
-    <Button @click="showCitySelector" plain text class="min-w-0">
+  <div class="flex justify-between items-center flex-wrap gap-[10px] sm:gap-[15px] mb-[12px] sm:mb-[15px] forecast-item">
+    <div class="flex items-center ml-4 gap-[10px] w-full sm:w-auto">
+      <span class="flex items-center gap-2 text-xs sm:text-base w-[250px] text-white"><i class="pi pi-calendar-clock" style="font-size: 17px"></i> {{ localTime }}</span>
+    </div>
+    <Button v-if="store.selectedLocation?.city?.[locale]" @click="showCitySelector" plain text class="min-w-0">
       <Image v-if="countryLinkIcon" :src="countryLinkIcon" class="shrink-0" />
-      <span class="truncate" style="margin-left: 8px;">{{ store.selectedLocation?.city?.[locale] }}</span>
-      <i class="pi ml-[4px] shrink-0" :class="{'pi-chevron-down': true}"></i>
+      <span class="truncate" style="margin-left: 8px; color: white; font-weight: 500; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">
+        {{ store.selectedLocation.city[locale] }} 
+        {{store.selectedLocation.timezone ? '(UTC' + (store.selectedLocation.timezone > 0 ? '+' : '') + store.selectedLocation.timezone + ')' : ''}}
+      </span>
     </Button>
     <ConfirmPopup group="citySelector">
       <template #container="{ rejectCallback }">
@@ -16,14 +21,17 @@
         </div>
       </template>
     </ConfirmPopup>
-    <div class="flex flex-wrap items-center gap-[10px] sm:gap-[15px] w-full sm:w-auto">
-      <div class="local-time flex items-center gap-[10px] w-full sm:w-auto">
-        <!--<h2 class="mx-5 text-base font-semibold" style="color: var(--text-color)">{{ formattedWeekRange }}</h2>-->
-        <span class="text-xs sm:text-base w-[340px]" style="color: var(--text-color)">{{ t('localTimeTitle') }}: {{ localTime }}</span>
-      </div>
-    </div>
-    <div class="controls w-full sm:w-auto">
+    <div class="flex flex-wrap items-center controls w-full sm:w-auto mr-2">
       <LanguageSelector />
+      <SelectButton 
+        v-model="unit" 
+        :allowEmpty="false" 
+        :options="options"
+        @change="onUnitChange"
+        optionLabel="icon"
+        optionValue="value"
+        dataKey="value"
+      />
     </div>
   </div>
 </template>
@@ -35,16 +43,20 @@ import Image from 'primevue/image'
 import ConfirmPopup from 'primevue/confirmpopup'
 import CitySelector from '../widgets/CitySelector.vue'
 import LanguageSelector from '../widgets/LanguageSelector.vue'
+import SelectButton from 'primevue/selectbutton'
 import { useConfirm } from 'primevue/useconfirm'
 import { useClock } from '@/composables/useClock'
+import { useLanguage } from '@/composables/useLanguage'
+import { useUnits } from '@/composables/useUnits'
 import { useWeatherStore } from '@/stores/weather.store'
 import { Location } from '@/types/locationTypes'
-import { useLanguage } from '@/composables/useLanguage'
+
 
 const confirm = useConfirm()
 const store = useWeatherStore()
-const { t, locale } = useLanguage()
+const { locale } = useLanguage()
 const { currentTime } = useClock()
+const { unit, options, setUnit } = useUnits()
 
 const countryLinkIcon = computed(() => {
   return store.selectedLocation?.country ? `https://flagsapi.com/${store.selectedLocation.country}/shiny/24.png` : null;
@@ -70,4 +82,40 @@ const onCityChange = async (location : Location) => {
   confirm.close()
 }
 
+const onUnitChange = async (unit: any) => {
+  setUnit(unit.value);
+}
+
 </script>
+
+<style scoped>
+.p-button {
+  padding: 0.5rem 1rem
+}
+
+:deep(.p-button) {
+  padding: 0.5rem 0.75rem
+}
+
+:deep(.p-selectbutton) {
+  background: rgb(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+:deep(.p-selectbutton .p-button) {
+  background: transparent;
+  color: white;
+  padding: 0.1rem 0.25rem;
+  border: none;
+  border-radius: 8px;
+  width: 30px;
+}
+
+:deep(.p-button.p-highlight) {
+  background: rgb(227, 242, 253, 0.3);
+}
+
+:deep(.p-button:not(:disabled):hover) {
+  background: rgb(256, 256, 256, 0.2);
+}
+</style>

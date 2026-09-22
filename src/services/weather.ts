@@ -3,6 +3,7 @@ import {
   WeatherResponse,
   ProcessedWeatherData
 } from "../types/weatherTypes";
+import { useUnits } from "@/composables/useUnits";
 
 export class WeatherService {
   private apiKey: string;
@@ -18,12 +19,13 @@ export class WeatherService {
     lang: string
   ): Promise<ProcessedWeatherData> {
     try {
+      const { unit } = useUnits();
       const response = await axios.get<WeatherResponse>(this.baseUrl, {
         params: {
           lat,
           lon,
           appid: this.apiKey,
-          units: "metric",
+          units: unit.value,
           lang,
         },
       });

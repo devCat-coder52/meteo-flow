@@ -31,7 +31,6 @@ export function useLanguage() {
 
 const translations: Translations = {
   emptySearchMessage: { ru: "Нет результата", en: "No results found" },
-  localTimeTitle: { ru: "Местное время", en: "Local Time" },
   currentWeather: { ru: "Текущая погода", en: "Current Weather" },
   feelsLike: { ru: "Ощущается как", en: "Feels like" },
   pressure: { ru: "Атм. давление", en: "Pressure" },

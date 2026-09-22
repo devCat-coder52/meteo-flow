@@ -2,6 +2,7 @@ import axios from "axios"
 import dayjs from "../utils/dayjs"
 import { TimeForecast, ForecastResponse } from "../types/weatherTypes";
 import { useLanguage } from "@/composables/useLanguage";
+import { useUnits } from "@/composables/useUnits";
 
 export class ForecastService {
   private apiKey: string;
@@ -17,12 +18,13 @@ export class ForecastService {
   ): Promise<Record<string, TimeForecast[]>> {
     try {
       const { locale } = useLanguage();
+      const { unit } = useUnits();
       const response = await axios.get<ForecastResponse>(this.baseUrl, {
         params: {
           lat,
           lon,
           appid: this.apiKey,
-          units: "metric",
+          units: unit.value,
           lang: locale.value,
           cnt: 30,
         },

@@ -8,7 +8,7 @@
     @change="onLanguageChange"
   >
     <template #value="slotProps">
-      <div v-if="slotProps.value" class="flex items-baseline gap-2">
+      <div v-if="slotProps.value" class="flex items-baseline gap-2 text-white">
         <i class="fa-classic fa-language"></i>{{ slotProps.value.label }}
       </div>
     </template>

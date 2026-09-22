@@ -1,5 +1,7 @@
 html {
   font-size: 16px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 body {
@@ -14,7 +16,7 @@ body {
 .temperature {
   font-size: clamp(1.25rem, 4vw, 1.5rem);
   font-weight: 600;
-  color: var(--text-color);
+  color: white;
 }
 
 .temperature__empty {
@@ -24,27 +26,25 @@ body {
 }
 
 .forecast-item {
-  background: var(--surface-card);
-  border: 1px solid var(--surface-border);
+  background: rgb(0, 0, 0, 0.2);
   border-radius: 8px;
   display: flex;
   align-items: center;
   gap: clamp(10px, 3vw, 20px);
   transition: box-shadow 0.2s;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  /*padding: clamp(8px, 2vw, 12px);*/
 }
 
 .forecast-item:hover {
+  background: rgb(0, 0, 0, 0.3);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .forecast-time {
   font-weight: 500;
-  color: var(--text-color);
+  color: white;
   font-size: clamp(0.9rem, 2.5vw, 1.1em);
   padding: clamp(6px, 1.5vw, 10px);
-  background-color: var(--surface-section);
   border-radius: 6px;
   min-width: clamp(60px, 15vw, 80px);
   text-align: center;
@@ -54,12 +54,15 @@ body {
   display: flex;
   align-items: center;
   font-size: clamp(0.75rem, 2vw, 1em);
-  color: var(--text-color-secondary);
+  color: white;
   padding: clamp(4px, 1vw, 5px) clamp(6px, 1.5vw, 10px);
-  background-color: var(--surface-section);
   border-radius: 4px;
   align-items: baseline;
   white-space: nowrap;
+}
+
+.p-button.p-button-text.p-button-plain:not(:disabled):hover {
+  background: rgb(0,0,0,0.1);
 }
 
 @media (max-width: 768px) {
@@ -73,6 +76,11 @@ body {
     flex-wrap: wrap;
     gap: 8px;
   }
+}
+
+.p-dataview .p-dataview-content {
+  background: transparent;
+  color: transparent;
 }
 
 @import "tailwindcss"

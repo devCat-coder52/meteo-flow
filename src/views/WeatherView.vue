@@ -2,16 +2,16 @@
   <div v-if="weather?.main" class="forecast-item p-8 sm:p-6 lg:p-10 mb-4 sm:mb-6 lg:mb-8 mx-2 sm:mx-4 lg:mx-10">
     <div class="flex flex-wrap gap-4 sm:gap-6 lg:gap-8 items-center w-full">
       <div class="grid grid-flow-col grow grid-rows-4 gap-1 min-w-0">
-        <div class="row-span-3 text-5xl sm:text-6xl lg:text-8xl text-(--text-color) font-medium leading-none shrink-2">{{ weather.main.temp }}</div>
-        <div class="text-xs sm:text-sm lg:text-base text-(--text-color-secondary)">{{ t('feelsLike') }} {{ weather.main.feels_like }}</div>
+        <div class="row-span-3 text-5xl sm:text-6xl lg:text-8xl text-white font-medium leading-none shrink-2">{{ weather.main.temp }}</div>
+        <div class="text-xs sm:text-sm lg:text-base">{{ t('feelsLike') }} {{ weather.main.feels_like }}</div>
         <div class="row-span-4">
-          <div class="flex flex-wrap">
+          <div class="flex flex-nowrap">
             <img 
               :src="`https://openweathermap.org/img/wn/${weather.main.icon}@2x.png`" 
               :alt="weather.main.description"
               class="size-[80px] sm:size-[100px] lg:size-[120px] self-start"
             />
-            <div class="flex flex-wrap items-center text-sm sm:text-lg lg:text-xl text-(--text-color) font-medium max-w-[100px] sm:max-w-[130px]">
+            <div class="flex flex-nowrap items-center text-sm sm:text-lg lg:text-xl text-white font-medium max-w-1/2 sm:max-w-[80px]">
               {{ weather.main.description }}
             </div>
           </div>

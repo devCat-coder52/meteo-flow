@@ -24,22 +24,33 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useWeatherStore } from '@/stores/weather.store';
+import d01 from '@/assets/videos/01d.mp4';
+import d02 from '@/assets/videos/02d.mp4';
+import d03 from '@/assets/videos/03d.mp4';
+import d04 from '@/assets/videos/04d.mp4';
+import d09 from '@/assets/videos/09d.mp4';
+import d10 from '@/assets/videos/10d.mp4';
+import d11 from '@/assets/videos/11d.mp4';
+import d13 from '@/assets/videos/13d.mp4';
+import d50 from '@/assets/videos/50d.mp4';
+import n01 from '@/assets/videos/01n.mp4';
+import n11 from '@/assets/videos/11n.mp4';
 
 const weatherStore = useWeatherStore();
 const bgVideo = ref<HTMLVideoElement | null>(null);
 
 const videoMap: Record<string, string> = {
-  "01d": '/meteo-flow/assets/videos/01d.mp4',
-  "02d": '/meteo-flow/assets/videos/02d.mp4',
-  "03d": '/meteo-flow/assets/videos/03d.mp4',
-  "04d": '/meteo-flow/assets/videos/04d.mp4',
-  "09d": '/meteo-flow/assets/videos/09d.mp4',
-  "10d": '/meteo-flow/assets/videos/10d.mp4',
-  "11d": '/meteo-flow/assets/videos/11d.mp4',
-  "13d": '/meteo-flow/assets/videos/13d.mp4',
-  "50d": '/meteo-flow/assets/videos/50d.mp4',
-  "01n": '/meteo-flow/assets/videos/01n.mp4',
-  "11n": '/meteo-flow/assets/videos/11n.mp4',
+  "01d": d01,
+  "02d": d02,
+  "03d": d03,
+  "04d": d04,
+  "09d": d09,
+  "10d": d10,
+  "11d": d11,
+  "13d": d13,
+  "50d": d50,
+  "01n": n01,
+  "11n": n11,
 };
 
 const weatherType = computed(() => {

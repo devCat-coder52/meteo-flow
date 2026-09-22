@@ -23,12 +23,12 @@
         <i class="pi pi-moon mr-2"></i>
         <span>Фазы луны рассчитываются по приближенной формуле</span>
       </div>-->
-      <div class="info-item copyright">
+      <div class="info-item">
         <i class="fa-regular fa-copyright mr-2"></i>
         <span>2026 · MeteoFlow · 
-          <button @click="showPrivacy = true" class="privacy-link">
+          <a @click="showPrivacy = true" target="_blank" class="font-medium hover:text-(--primary-color) transition-colors cursor-pointer">
             {{ t('privacyTitle') }}
-          </button>
+          </a>
         </span>
       </div>
     </div>
@@ -63,9 +63,9 @@ const showPrivacy = ref(false)
 .info-footer {
   margin: 0 auto;
   padding: clamp(10px, 2vw, 15px);
-  background: var(--surface-section);
   border-radius: 8px;
   border: 1px solid var(--surface-border);
+  background: rgb(0, 0, 0, 0.1);
 }
 
 .info-item {
@@ -73,7 +73,6 @@ const showPrivacy = ref(false)
   align-items: baseline;
   margin-bottom: clamp(6px, 1.5vw, 8px);
   font-size: clamp(0.75rem, 2vw, 0.9rem);
-  color: var(--text-color-secondary);
   line-height: 1.4;
   flex-wrap: nowrap;
 }
@@ -90,7 +89,6 @@ const showPrivacy = ref(false)
 .privacy-link {
   background: none;
   border: none;
-  color: var(--text-color-secondary);
   font-size: clamp(0.7rem, 1.8vw, 0.85rem);
   cursor: pointer;
   padding: 0;

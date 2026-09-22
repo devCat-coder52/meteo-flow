@@ -49,8 +49,8 @@ export const useWeatherStore = defineStore("weather", () => {
       weatherData.value = weather;
       forecastData.value = forecast;
 
-      selectedLocation.value.timezone = weatherData.value.timezone / 3600 || 0;
-      //updateMoonData()
+      const timezone_hour = weatherData.value.timezone / 3600 || 0;
+      selectedLocation.value.timezone = timezone_hour;
       error.value = null;
     } catch (err) {
       console.error("Ошибка загрузки:", err);
@@ -90,7 +90,7 @@ export const useWeatherStore = defineStore("weather", () => {
       city,
       country,
       isIp,
-      timezone: timezone ? timezone / 3600 : 0,
+      timezone: timezone,
     };
     await loadWeatherAndForecast();
   };
